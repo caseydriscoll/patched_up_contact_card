@@ -18,6 +18,12 @@
  *    Important registration and action filters at the end of the file.
  *
  * How It Works:
+ *    The all variables are saved in the $instance variable. Each social button is saved as a key => value
+ *    labelled 'platform_#' and 'username_#'
+ *
+ *    A count is retained in the instance and a for loop can easily grab every key/value through iteration.
+ *
+ *    Simple validation occurs in update(), not saving the values if they are default and returning an alert
  *
  *
  * Copyright:
@@ -38,6 +44,8 @@
  */
 
 Class Patched_Up_Contact_Card_Widget extends WP_Widget {
+  private $debug = false;
+
   public function __construct() {
     parent::__construct(
       'patched_up_contact_card',
@@ -59,10 +67,17 @@ Class Patched_Up_Contact_Card_Widget extends WP_Widget {
   }
 
   public function form( $instance ) {
+    if($this->debug) print_r($instance);
+
     // Grab the existing variables if they exist
     if ( isset($instance) ) extract($instance);
 
     ?>
+
+    
+    <?php // A quick and dirty alert box if the user doesn't update anything but hits save 
+    if( $alert != '' ) 
+    echo '<p style="color:red;padding:5px;border:1px solid red;border-radius:5px;background-color:rgba(255,0,0,0.2);">' . $alert . '</p>'; ?>
 
     <p><?php // Standard Title Form ?>
       <label for="<?php echo $this->get_field_id('title');?>">Title:</label>
@@ -73,6 +88,56 @@ Class Patched_Up_Contact_Card_Widget extends WP_Widget {
                 value="<?php if ( isset($title) ) echo esc_attr($title); ?>" />
     </p>
 
+    <?php   // Button Fields: Pairs of urls and usernames 
+            //   There will be a select list with every available platform ?>
+
+    <?php if ( !isset($count) ) $count = 0;
+
+          $options = array( // To populate every select list below
+              "Add new:"  => "",
+              "facebook"  => "http://facebook.com/",
+              "twitter"   => "http://twitter.com/",
+              "skype"     => "skype:",
+              "linkedin"  => "http://linkedin.com/",
+              "reddit"    => "http://reddit.com/u/",
+              "github"    => "http://github.com/",
+          );
+
+    // For every platform given through $instance
+    //    Key => Value pairs are simply stored as 'platform_#' and 'username_#'. Set debug to true for more info
+    for ( $i = 0; $i <= $count; $i++ ) { 
+        $platform_count = 'platform_' . $i; // the platform key for this button 
+        $username_count = 'username_' . $i; // the username key for thie button
+      
+      // Every button is a paragraph with two inputs: a selector for the platform and an input for username ?>
+      <p style="clear:both;padding-bottom:10px;height:10px;">
+        <select name="<?php echo $this->get_field_name($platform_count); ?>" 
+                id="<?php echo $this->get_field_id($platform_count); ?>"
+                style="width: 100px; float: left;"
+                class="">
+
+        <?php foreach ($options as $option => $url) // Add every option to the dropdown as given above 
+        echo '<option value="' . $url . '" id="' . $option . '"' , 
+               $count != $i && $$platform_count == $url ? ' selected="selected"' : '', '>' .
+                ucfirst($option) . 
+             '</option>'; ?>
+        </select>
+
+        <input  type="text" <?php // The input text field for the username ?>
+                style="width: 120px; float: left;"
+                class=""
+                id="<?php echo $this->get_field_id($username_count); ?>"
+                name="<?php echo $this->get_field_name($username_count); ?>"
+                value="<?php echo isset($$username_count) ? esc_attr($$username_count) : 'User ID' ?>" />
+      </p>
+
+    <? } ?>
+
+        <input type="hidden" <?php // A simple hidden field to carry along the total number of contact buttons?>
+             id="<?php echo $this->get_field_id('count');?>" 
+             name="<?php echo $this->get_field_name('count');?>" 
+             value="<?php echo $count + 1; ?>">
+
     <?
   }
 
@@ -81,7 +146,19 @@ Class Patched_Up_Contact_Card_Widget extends WP_Widget {
 
     // Fields
     $instance['title'] = strip_tags($new_instance['title']);
+    $instance['count'] = strip_tags($new_instance['count']);
 
+    for ($count = 0; $count < $instance['count']; $count++) {
+      // Simple validation does not save if defaults are given and returns an error alert
+      if ( $new_instance['platform_' . $count] != '' && $new_instance['username_' . $count] != 'User ID') {
+        $instance['platform_' . $count] = strip_tags($new_instance['platform_' . $count]);
+        $instance['username_' . $count] = strip_tags($new_instance['username_' . $count]);
+        $instance['alert'] = '';
+      } else {
+        $instance['count'] = $instance['count'] - 1;
+        $instance['alert'] = "Must select a platform and enter a username";
+      }
+    }
     return $instance;
   }
 }

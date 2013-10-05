@@ -36,6 +36,9 @@ Patched Up Contact Card is a clean and semantic way of displaying as many of you
 
 == Changelog ==
 
+= 0.0.3 =
+*Add form fields for adding buttons with alert box and simple validation
+
 = 0.0.2 =
 *Add widget framework
 *Add title customization
@@ -46,7 +49,11 @@ Patched Up Contact Card is a clean and semantic way of displaying as many of you
 == To Do ==
 
 = Features to Add =
-*Add 'add button'
+*Add front end implementation
+*Allow users to delete
+*Establish css sheet and remove styling from plugin
+*Add ajax call
+*Add example box below
 *Add custom styling
 *Add custom url
 
