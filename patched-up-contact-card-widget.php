@@ -3,7 +3,7 @@
 /* Plugin Name: Patched Up Contact Card 
  * Plugin URI: http://patchedupcreative.com/plugins/contact-card
  * Description: A very clean and semantic way of adding social networking links to your sidebar
- * Version: 0.0.4
+ * Version: 0.0.5
  * Date: 10-04-2013
  * Author: Casey Patrick Driscoll
  * Author URI: http://caseypatrickdriscoll.com
@@ -102,15 +102,17 @@ Class Patched_Up_Contact_Card_Widget extends WP_Widget {
 
     <?php if ( !isset($count) ) $count = 0;
 
-          $options = array( // To populate every select list below
-              "Add new:"  => "",
-              "facebook"  => "http://facebook.com/",
-              "twitter"   => "http://twitter.com/",
-              "skype"     => "skype:",
-              "linkedin"  => "http://linkedin.com/",
-              "reddit"    => "http://reddit.com/u/",
-              "github"    => "http://github.com/",
-          );
+    $options = array( // To populate every select list below
+      "",
+      "facebook",   "dribbble",       "envelope",  "tumblr",
+      "twitter",    "stumbleupon",    "phone",     "blogger",
+      "skype",      "flickr",         "screen",    "wordpress",
+      "linkedin",   "google-plus",    "mobile",    "feed",
+      "reddit",     "stackoverflow",  "vimeo",     "instagram",
+      "github",     "foursquare",     "steam",     "youtube",
+    );
+
+    sort($options);
 
     // For every platform given through $instance
     //    Key => Value pairs are simply stored as 'platform_#' and 'username_#'. Set debug to true for more info
@@ -125,11 +127,16 @@ Class Patched_Up_Contact_Card_Widget extends WP_Widget {
                 style="width: 100px; float: left;"
                 class="">
 
-        <?php foreach ($options as $option => $url) // Add every option to the dropdown as given above 
-        echo '<option value="' . $option . '" id="' . $option . '"' , 
-               $count != $i && $$platform_count == $option ? ' selected="selected"' : '', '>' .
-                ucfirst($option) . 
-             '</option>'; ?>
+        <?php foreach ($options as $option) { // Add every option to the dropdown as given above 
+                if ($option == 'envelope')    $display = 'email'; 
+                elseif ($option == 'screen')  $display = 'url'; 
+                else                          $display = $option;
+
+                echo '<option value="' . $option . '" id="' . $option . '"' , 
+                        $count != $i && $$platform_count == $option ? ' selected="selected"' : '', '>' .
+                        ucfirst($display) . 
+                      '</option>'; 
+        } ?>
         </select>
 
         <input  type="text" <?php // The input text field for the username ?>

@@ -4,6 +4,7 @@
 
 ul.patched_up_contact_card {
   clear: both;
+  margin-bottom: -5px;
   }
   ul.patched_up_contact_card:after { 
      content: "."; 
@@ -67,9 +68,6 @@ License:  Aribitrary -- http://licence.visualidiot.com/
 }
 .icon-dribbble:before {
   content: "\e001";
-}
-.icon-picassa:before {
-  content: "\e003";
 }
 .icon-flickr:before {
   content: "\e004";

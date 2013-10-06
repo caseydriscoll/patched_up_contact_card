@@ -4,7 +4,7 @@ Donate link: http://caseypatrickdriscoll.com
 Tags: widget, social media, contact
 Requires at least: 3.6.1
 Tested up to: 3.6.1
-Stable tag: 0.0.4
+Stable tag: 0.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,6 +14,8 @@ A widget that produces any amount of sidebar links to your social profiles
 
 Patched Up Contact Card is a clean and semantic way of displaying as many of your social media sites as you are comfortable with.
 
+The usage is very simple, install the plugin and widget, add platforms with the dropdown menu and enter your vanity name! Patched Up Contact Card will then automatically create the url that goes to your profile. 
+
 = Supported Platforms =
 *Facebook
 *Twitter
@@ -21,11 +23,26 @@ Patched Up Contact Card is a clean and semantic way of displaying as many of you
 *Linkedin
 *Reddit
 *Github
+*Dribbble
+*Stumbleupon
+*Stackoverflow
+*Foursquare
+*Google Plus
+*Stumbleupon
+*Flickr
+*Vimeo
+*Steam
+*Tumblr
+*Blogspot
+*Wordpress.com
+*RSS
+*Instagram
+*Youtube
 
 *Email
 *Mobile Phone
 *Desk Phone
-*Computer
+*Computer/url
 
 == Installation ==
 
@@ -35,6 +52,10 @@ Patched Up Contact Card is a clean and semantic way of displaying as many of you
 4. Customize social buttons by selecting platforms and entering urls
 
 == Changelog ==
+
+= 0.0.5 =
+*Special case urls
+*Icons added: Vimeo, Google Plus, Dribbble, Stumbleupon, Flickr, Vimeo, Steam, Stackoverflow, Foursquare, Tumblr, Blogspot, Wordpress.com, RSS, Instagram, Youtube
 
 = 0.0.4 =
 *Add front end implementation
@@ -54,7 +75,6 @@ Patched Up Contact Card is a clean and semantic way of displaying as many of you
 == To Do ==
 
 = Features to Add =
-*Special case urls
 *Add better alerts
 *Allow users to delete
 *Add option for _blank or _parent target
@@ -62,6 +82,13 @@ Patched Up Contact Card is a clean and semantic way of displaying as many of you
 *Add example box below
 *Add custom styling
 *Add custom url
+*Clearer form instructions
+*Add tooltip with info
+
+= Bugs to Fix =
+*Remove styling from php
+*Better support for phone calls from clicking
+*Tweak fonts for better icons
 
 = Icons to Add =
 *Nike Plus
@@ -70,11 +97,7 @@ Patched Up Contact Card is a clean and semantic way of displaying as many of you
 *Codecademy
 *Khan Academy
 *Bitbucket
-*WordPress
 *Meetup
-*Stumbleupon
-*Foursquare
-*Youtube
-*Vimeo
-*Google Plus
-*Stack Overflow
+*Vine
+*Snapchat
+*Roadtrippers
