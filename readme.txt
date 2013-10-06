@@ -4,7 +4,7 @@ Donate link: http://caseypatrickdriscoll.com
 Tags: widget, social media, contact
 Requires at least: 3.6.1
 Tested up to: 3.6.1
-Stable tag: 0.0.3
+Stable tag: 0.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,11 @@ Patched Up Contact Card is a clean and semantic way of displaying as many of you
 
 == Changelog ==
 
+= 0.0.4 =
+*Add front end implementation
+*Add fonts to front end
+*Establish css sheet and remove styling from plugin
+
 = 0.0.3 =
 *Add form fields for adding buttons with alert box and simple validation
 
@@ -49,9 +54,10 @@ Patched Up Contact Card is a clean and semantic way of displaying as many of you
 == To Do ==
 
 = Features to Add =
-*Add front end implementation
+*Special case urls
+*Add better alerts
 *Allow users to delete
-*Establish css sheet and remove styling from plugin
+*Add option for _blank or _parent target
 *Add ajax call
 *Add example box below
 *Add custom styling

@@ -3,7 +3,7 @@
 /* Plugin Name: Patched Up Contact Card 
  * Plugin URI: http://patchedupcreative.com/plugins/contact-card
  * Description: A very clean and semantic way of adding social networking links to your sidebar
- * Version: 0.0.3
+ * Version: 0.0.4
  * Date: 10-04-2013
  * Author: Casey Patrick Driscoll
  * Author URI: http://caseypatrickdriscoll.com
@@ -43,6 +43,8 @@
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+include 'class-patched-up-contact-card.php';
+
 Class Patched_Up_Contact_Card_Widget extends WP_Widget {
   private $debug = false;
 
@@ -55,6 +57,9 @@ Class Patched_Up_Contact_Card_Widget extends WP_Widget {
   }
 
   public function widget( $args, $instance ) {
+    wp_register_style('patchedUpContactCardStylesheet', plugins_url('css/widget.css', __FILE__) );
+    wp_enqueue_style( 'patchedUpContactCardStylesheet' );
+
     $title = apply_filters( 'widget_title', $instance['title']);
 
     echo $args['before_widget'];
@@ -62,6 +67,10 @@ Class Patched_Up_Contact_Card_Widget extends WP_Widget {
     // If there is a title, print it out
     if ( !empty($title) )
       echo $args['before_title'] . $title . $args['after_title'];
+
+    if($this->debug) print_r($instance);
+
+    echo new Patched_Up_Contact_Card($instance);
 
     echo $args['after_widget'];
   }
@@ -76,7 +85,7 @@ Class Patched_Up_Contact_Card_Widget extends WP_Widget {
 
     
     <?php // A quick and dirty alert box if the user doesn't update anything but hits save 
-    if( $alert != '' ) 
+    if( isset($alert) && $alert != '' ) 
     echo '<p style="color:red;padding:5px;border:1px solid red;border-radius:5px;background-color:rgba(255,0,0,0.2);">' . $alert . '</p>'; ?>
 
     <p><?php // Standard Title Form ?>
@@ -117,8 +126,8 @@ Class Patched_Up_Contact_Card_Widget extends WP_Widget {
                 class="">
 
         <?php foreach ($options as $option => $url) // Add every option to the dropdown as given above 
-        echo '<option value="' . $url . '" id="' . $option . '"' , 
-               $count != $i && $$platform_count == $url ? ' selected="selected"' : '', '>' .
+        echo '<option value="' . $option . '" id="' . $option . '"' , 
+               $count != $i && $$platform_count == $option ? ' selected="selected"' : '', '>' .
                 ucfirst($option) . 
              '</option>'; ?>
         </select>
